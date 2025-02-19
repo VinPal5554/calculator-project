@@ -17,11 +17,28 @@ def divide(n1, n2):
 def multiply(n1, n2):
     return n1 * n2
 
+# Exponential
+def exponentiate(n1, n2):
+    return n1 ** n2
+
+# Modulo
+def modulus(n1, n2):
+    return n1 % n2
+
+# Floor division
+def floor_divide(n1, n2):
+    if n2 == 0:
+        return "Error: Cannot divide by zero"
+    return n1 // n2
+
 operations = {
     "+": add,
     "-": subtract,
     "/": divide,
     "*": multiply,
+    "**": exponentiate,
+    "%": modulus,
+    "//": floor_divide,
 }
 
 
@@ -52,5 +69,15 @@ def calculator():
         else:
             num1 = answer
 
+def GenerateCalculatorArt():
+    print("""_________________________________________________________________________    
+             / ___|  / \  | |   / ___| | | | |      / \|_   _/ _ \|  _ \ 
+            | |     / _ \ | |  | |   | | | | |     / _ \ | || | | | |_) |
+            | |___ / ___ \| |__| |___| |_| | |___ / ___ \| || |_| |  _ < 
+             \____/_/   \_\_____\____|\___/|_____/_/   \_\_| \___/|_| \_\ \n""")
+             
+
+
+GenerateCalculatorArt();
 
 calculator()

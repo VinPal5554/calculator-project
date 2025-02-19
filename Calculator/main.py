@@ -1,5 +1,17 @@
+import tkinter as tk
+
 
 # Calculator Project
+
+
+def GenerateCalculatorArt():
+    print("""_________________________________________________________________________    
+             / ___|  / \  | |   / ___| | | | |      / \|_   _/ _ \|  _ \ 
+            | |     / _ \ | |  | |   | | | | |     / _ \ | || | | | |_) |
+            | |___ / ___ \| |__| |___| |_| | |___ / ___ \| || |_| |  _ < 
+             \____/_/   \_\_____\____|\___/|_____/_/   \_\_| \___/|_| \_\ \n""")
+             
+
 
 # Add
 def add(n1, n2):
@@ -41,8 +53,24 @@ operations = {
     "//": floor_divide,
 }
 
+# GUI Calculator
+def on_click(value):
+    current_text = entry_var.get()
 
-def calculator():
+    if value == "=":
+        try:
+            result = eval(current_text, {"__builtins__": None}, operations)
+            entry_var.set(result)
+        except Exception:
+            entry_var.set("Error")
+    elif value == "C":
+        entry_var.set("")
+    else:
+        entry_var.set(current_text + str(value))
+
+
+
+def cli_calculator():
     num1 = float(input("What is the first number?"))
 
     for key in operations:
@@ -65,19 +93,49 @@ def calculator():
 
         if user_choice == 'n':
             calculator_running = False
-            calculator()
+            cli_calculator()
         else:
             num1 = answer
 
-def GenerateCalculatorArt():
-    print("""_________________________________________________________________________    
-             / ___|  / \  | |   / ___| | | | |      / \|_   _/ _ \|  _ \ 
-            | |     / _ \ | |  | |   | | | | |     / _ \ | || | | | |_) |
-            | |___ / ___ \| |__| |___| |_| | |___ / ___ \| || |_| |  _ < 
-             \____/_/   \_\_____\____|\___/|_____/_/   \_\_| \___/|_| \_\ \n""")
-             
+
+def gui_calculator():
+    global entry_var  # Ensure the entry variable is accessible inside the function
+    root = tk.Tk()
+    root.title("Calculator")
+
+    entry_var = tk.StringVar()
+    entry = tk.Entry(root, textvariable=entry_var, font=("Arial", 20), justify="right", bd=10)
+    entry.grid(row=0, column=0, columnspan=4)
+
+    buttons = [
+        ("7", "8", "9", "/"), ("4", "5", "6", "*"),
+        ("1", "2", "3", "-"), ("C", "0", "=", "+")
+    ]
+
+    for r, row in enumerate(buttons):
+        for c, char in enumerate(row):
+            btn = tk.Button(root, text=char, font=("Arial", 18), width=5, height=2, command=lambda v=char: on_click(v))
+            btn.grid(row=r+1, column=c)
+
+    root.mainloop()
 
 
-GenerateCalculatorArt();
+# Choose Mode
+def main():
+    choice = input("Choose mode: Type 'cli' for command line or 'gui' for graphical interface: ").strip().lower()
+    if choice == "cli":
+        GenerateCalculatorArt();
+        cli_calculator()
+    elif choice == "gui":
+        GenerateCalculatorArt();
+        gui_calculator()
+    else:
+        print("Invalid choice! Please enter 'cli' or 'gui'.")
+        main()
 
-calculator()
+# Run program
+main()
+
+
+
+

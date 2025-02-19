@@ -1,0 +1,1 @@
+This is a simple calculator project made in Python. It uses a command line interface and allows for operations such as addition, subtraction, division, exponents, floor division, etc. In the future I plan to implement an option for a graphical user interface.

@@ -1,4 +1,5 @@
 import tkinter as tk
+import os
 
 
 # Calculator Project
@@ -57,12 +58,23 @@ operations = {
     "//": floor_divide,
 }
 
+def Check_Valid_Number(number):
+    while True:
+      try:
+          return float(input(number))
+      except ValueError:
+              print("Please choose an appropriate number!")
+
+
 def cli_calculator():
-    
+  
     calculator_running = True
     
     while calculator_running:
-        num1 = float(input("What is the first number? "))
+        
+        GenerateCalculatorArt()  
+        
+        num1 = Check_Valid_Number("What is the first number? ")
 
         for key in operations:
             print(key)
@@ -74,7 +86,7 @@ def cli_calculator():
                 print("Please choose an operation from the options!")
                 continue; 
             
-            num2 = float(input("What is the next number? "))
+            num2 = Check_Valid_Number("What is the next number? ")
 
             chosen_operation = operations[operation_symbol]
             answer = chosen_operation(num1, num2)
@@ -84,6 +96,7 @@ def cli_calculator():
             user_choice = input(f"Would you like to continue calculating with {answer}? (type 'y'), or type 'n' to restart, or 'q' to quit: ").lower()
 
             if user_choice == 'n':
+                os.system('cls')
                 break
             if user_choice == 'q':
                 return
@@ -131,9 +144,9 @@ def gui_calculator():
     root.mainloop()
 
 
+
 def main():
-    GenerateCalculatorArt()
-    choice = input("Choose mode: Type 'cli' for command line or 'gui' for graphical interface: ").strip().lower()
+    choice = input("Choose mode: Type 'cli' for command line or 'gui' for graphical interface: ")
         
     if choice == "cli":
         cli_calculator()

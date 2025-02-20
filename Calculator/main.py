@@ -23,6 +23,9 @@ def subtract(n1, n2):
 
 # Divide
 def divide(n1, n2):
+    if n2 == 0:
+        print("Error: Cannot divide by zero")
+        cli_calculator();
     return n1 / n2
 
 # Multiply
@@ -40,7 +43,8 @@ def modulus(n1, n2):
 # Floor division
 def floor_divide(n1, n2):
     if n2 == 0:
-        return "Error: Cannot divide by zero"
+        print("Error: Cannot divide by zero")
+        cli_calculator();
     return n1 // n2
 
 operations = {
@@ -52,6 +56,41 @@ operations = {
     "%": modulus,
     "//": floor_divide,
 }
+
+def cli_calculator():
+    
+    calculator_running = True
+    
+    while calculator_running:
+        num1 = float(input("What is the first number? "))
+
+        for key in operations:
+            print(key)
+
+        while True:
+            operation_symbol = input("Pick an operation: ")
+            
+            if operation_symbol not in operations:
+                print("Please choose an operation from the options!")
+                continue; 
+            
+            num2 = float(input("What is the next number? "))
+
+            chosen_operation = operations[operation_symbol]
+            answer = chosen_operation(num1, num2)
+
+            print(f"{num1} {operation_symbol} {num2} = {answer}")
+
+            user_choice = input(f"Would you like to continue calculating with {answer}? (type 'y'), or type 'n' to restart, or 'q' to quit: ").lower()
+
+            if user_choice == 'n':
+                break
+            if user_choice == 'q':
+                return
+            else:
+                num1 = answer
+
+
 
 # GUI Calculator
 def on_click(value):
@@ -69,37 +108,8 @@ def on_click(value):
         entry_var.set(current_text + str(value))
 
 
-
-def cli_calculator():
-    num1 = float(input("What is the first number?"))
-
-    for key in operations:
-        print(key)
-
-    calculator_running = True
-
-    while calculator_running:
-
-        operation_symbol = input("Pick an operation: ")
-
-        num2 = float(input("What is the next number?"))
-
-        chosen_operation = operations[operation_symbol]
-        answer = chosen_operation(num1, num2)
-
-        print(f"{num1} {operation_symbol} {num2} = {answer}")
-
-        user_choice = input(f"Type 'y' to continue calculating with {answer}, or type 'n' to restart: ").lower()
-
-        if user_choice == 'n':
-            calculator_running = False
-            cli_calculator()
-        else:
-            num1 = answer
-
-
 def gui_calculator():
-    global entry_var  # Ensure the entry variable is accessible inside the function
+    global entry_var  
     root = tk.Tk()
     root.title("Calculator")
 
@@ -121,14 +131,13 @@ def gui_calculator():
     root.mainloop()
 
 
-# Choose Mode
 def main():
+    GenerateCalculatorArt()
     choice = input("Choose mode: Type 'cli' for command line or 'gui' for graphical interface: ").strip().lower()
+        
     if choice == "cli":
-        GenerateCalculatorArt();
         cli_calculator()
     elif choice == "gui":
-        GenerateCalculatorArt();
         gui_calculator()
     else:
         print("Invalid choice! Please enter 'cli' or 'gui'.")

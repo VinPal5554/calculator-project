@@ -18,4 +18,7 @@ cd calculator-project
 python main.py
 ```
 
+![Calculator Screenshot](Calculator/calculator_1.PNG)
+
+![Calculator2 Screenshot](Calculator/calculator2.PNG)
 

@@ -9,8 +9,7 @@ def subtract(n1, n2):
 # Divide
 def divide(n1, n2):
     if n2 == 0:
-        print("Error: Cannot divide by zero")
-        #  cli_calculator();
+        raise ValueError("Cannot divide by zero")
     return n1 / n2
 
 # Multiply
@@ -28,6 +27,5 @@ def modulus(n1, n2):
 # Floor division
 def floor_divide(n1, n2):
     if n2 == 0:
-        print("Error: Cannot divide by zero")
-        #  cli_calculator()
+        raise ValueError("Cannot divide by zero")
     return n1 // n2
